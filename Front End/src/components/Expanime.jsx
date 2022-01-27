@@ -1,0 +1,63 @@
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { Link } from "react-router-dom";
+
+
+function Expanime(props) {
+    const [data, setData] = useState([]);
+    const [loading, setLoading] = useState(false);
+    let style = {
+      "borderRadius": "0.3rem",
+      "animation": "fadeInAnimation ease 2s",
+      "animationIterationCount": "1",
+      "animationFillMode": "forwards" 
+    };
+    
+    useEffect(() => {
+      const loadData = async () => {
+          
+          setLoading(true);
+          const response = await axios.get(props.api);
+          const item = await response.data.data;
+          setData(item);
+          setLoading(false);
+      }
+      loadData();
+  }, []);
+
+  function abc() {
+    return (<div className="placeholder-div">
+    <div className="placeholder-item"/>
+    <div className="placeholder-item"/>
+    <div className="placeholder-item"/>
+    <div className="placeholder-item"/>
+    <div className="placeholder-item"/> 
+  </div>)
+  }
+  
+  
+
+  return (
+    <>
+         <h6>{props.title}</h6> 
+         <div className="explore">
+         { loading ? (abc()) :
+          (data.map((item, index) => 
+            <Link to={`/anime/${item.attributes.slug}`} className="explore-img" key={index}>
+             <img 
+                key={index}
+                style={style}
+                className="explore-img" 
+                alt="anime"
+                src={item.attributes.posterImage.small}
+              />
+            </Link>))
+         }
+          </div>
+    </>
+  )
+}
+
+export default Expanime;
+
+
