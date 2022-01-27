@@ -3,7 +3,7 @@ import Img from "../components/Img";
 import Grid from "../components/Grid";
 
 function Home() {
-  document.title="Animex";
+  document.title="AnimeX";
   return (
     
     <>

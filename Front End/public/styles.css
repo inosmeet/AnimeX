@@ -79,7 +79,7 @@ nav {
   font-family: Montserrat;
   color: white;
   text-decoration: none;
-  margin: 34px;
+  margin:0 17px;
   display: inline;
 }
 .footer-link:hover {
@@ -402,8 +402,8 @@ p {
 
 .explore-img{
   margin: 0.5%;
-  height: 13.75em;
-  width: 9.68em;
+  height: 14.75em; /* 13.75 */
+  width: 10.68em; /* 9.68 */
   border-radius: 0.3rem;
   overflow: hidden;
   transition: transform .3s;
@@ -454,12 +454,12 @@ h6{
   flex-wrap: wrap;
 }
 @media only screen and (max-width: 1800px){
-  .explore{
+  /* .explore{
     margin-left: 15%;
     display: flex;
-    width: 110%;
+    width: 100%;
     flex-wrap: wrap;
-  }
+  } */
   .explore-img{
     margin: 0.5%;
     height: 11.5em;
@@ -602,7 +602,7 @@ h6{
 
 /* BREAK QUERY PAGE */
 #query-div {
-  margin-left: 4%;
+  /* margin-left: 4%; */
   /* display: flex; */
   width: 100%;
   flex-wrap: wrap;

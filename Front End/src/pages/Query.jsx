@@ -20,7 +20,7 @@ export default function Query() {
 
 
 
-    document.title = `${params.queryId.charAt(0).toUpperCase() + params.queryId.slice(1)} | Animex`;
+    document.title = `${params.queryId.charAt(0).toUpperCase() + params.queryId.slice(1)} | AnimeX`;
 
     return (
         <div className="sidebar-parent">
