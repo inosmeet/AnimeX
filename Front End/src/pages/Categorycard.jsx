@@ -7,8 +7,9 @@ import Expanime from "../components/Expanime";
 
 
 function Categorycard() {
+    const [isClicked, setIsClicked] = useState(false);
     const [e,f] = useState("");
-    const [description, setDescription] = useState();
+    const [description, setDescription] = useState("");
     let params = useParams();
     useEffect(() => {
     async function a() {
@@ -24,6 +25,13 @@ function Categorycard() {
     }
     a();
 }, []);
+
+
+    function handleClick() {
+        setIsClicked(!isClicked);
+    }
+
+
 
     return (
          <div className="sidebar-parent">
@@ -47,7 +55,18 @@ function Categorycard() {
       </div>
       <div className="description">
       <h3 className="description-title">Description</h3>
-      <span>{description}</span>
+
+      { description.length < 150 ? <span>{description}</span> :
+        (isClicked ? 
+      <span>
+        {description}
+        <button style={{"border": "none", "backgroundColor": "white", "color": "red"}} onClick={handleClick}>...Read Less</button>
+      </span> :
+      <span>
+        {description.slice(0, 150) + "..."}
+        <button style={{"border": "none", "backgroundColor": "white", "color": "red"}} onClick={handleClick}>Read More</button>
+      </span>)
+      }
       
          </div>
          </div>

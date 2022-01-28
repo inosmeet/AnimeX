@@ -7,7 +7,8 @@ import Expanime from "../components/Expanime";
 
 export default function Query() {
     let params = useParams();
-    const [description, setDescription] = useState([]);
+    const [isClicked, setIsClicked] = useState(false);
+    const [description, setDescription] = useState("");
     useEffect(() => {
         async function a() {
             const response = await axios.get("https://kitsu.io/api/edge/anime?filter%5Btext%5D=" + params.queryId + "8&page%5Blimit%5D=20");
@@ -21,6 +22,10 @@ export default function Query() {
 
 
     document.title = `${params.queryId.charAt(0).toUpperCase() + params.queryId.slice(1)} | AnimeX`;
+    function handleClick() {
+        setIsClicked(!isClicked);
+    }
+
 
     return (
         <div className="sidebar-parent">
@@ -42,7 +47,18 @@ export default function Query() {
         </div>
         <div className="description">
       <h3 className="description-title">Description</h3>
-      <span>{description}</span>
+
+      { description.length < 150 ? <span>{description}</span> :
+        (isClicked ? 
+      <span>
+        {description}
+        <button style={{"border": "none", "backgroundColor": "white", "color": "red"}} onClick={handleClick}>...Read Less</button>
+      </span> :
+      <span>
+        {description.slice(0, 150) + "..."}
+        <button style={{"border": "none", "backgroundColor": "white", "color": "red"}} onClick={handleClick}>Read More</button>
+      </span>)
+      }
       
          </div>
         </div>

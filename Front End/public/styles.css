@@ -69,6 +69,7 @@ nav {
   height: 2.5rem;
   background-color: #242526;
   padding: 4%;
+  margin-top: 1.5%;
   text-align: center;
 }
 
@@ -487,8 +488,8 @@ h6{
 .placeholder-item {
   box-shadow: 0 4px 10px 0 rgba(33, 33, 33, 0.15);
   border-radius: 0.3rem;
-  height: 13.75em;
-  width: 10.31em;
+  height: 14.75em;
+  width: 11.31em;
   margin: 0.5%;
   position: relative;
   overflow: hidden;
