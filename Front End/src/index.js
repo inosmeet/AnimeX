@@ -9,6 +9,7 @@ import Categorycard from "./pages/Categorycard";
 import Query from "./pages/Query";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import "./index.css";
 
 const rootElement = document.getElementById("root");
 ReactDOM.render(

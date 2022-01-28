@@ -68,7 +68,7 @@ function Categorycard() {
       
          </div>
          </div>
-        
+       
     )
     
 }

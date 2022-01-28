@@ -501,8 +501,8 @@ h6{
   position: absolute;
   left: -150px;
   top: 0;
-  height: 13.75em;
-  width: 9.68em;
+  height: 14.75em;
+  width: 11.31em;
   background: linear-gradient(to right, transparent 0%, #E8E8E8 50%, transparent 100%);
   animation: load 1s cubic-bezier(0.4, 0.0, 0.2, 1) infinite;
 }
