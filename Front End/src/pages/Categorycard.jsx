@@ -16,8 +16,6 @@ function Categorycard() {
         const response = await axios.get(`https://kitsu.io/api/edge/categories?filter%5Bslug%5D=${params.categoryId}` ); 
         const data = await response.data.data[0].attributes.title;
         document.title = `${response.data.data[0].attributes.title} Anime | AnimeX` ;
-        const notFound = await response.data.data;
-
 
 
         f(data);

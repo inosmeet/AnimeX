@@ -9,9 +9,14 @@ function Animecard() {
 
     useEffect(() => {
     async function a() {
-        const b = await axios.get("https://kitsu.io/api/edge/anime?filter%5Bslug%5D=" + params.animeId); 
-        f(b);
-        document.title = (`${b.data.data[0].attributes.titles.en_jp} | AnimeX `);
+        const response = await axios.get("https://kitsu.io/api/edge/anime?filter%5Bslug%5D=" + params.animeId); 
+        f(response);
+        const title = await response.data.data[0].attributes.titles;
+        if (title.en === undefined) {
+            document.title = (`${title.en_jp} | AnimeX `);
+        } else {
+            document.title = (`${title.en} | AnimeX `);
+        }
     }
     
 a();
