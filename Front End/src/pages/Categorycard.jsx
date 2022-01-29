@@ -8,8 +8,8 @@ import Expanime from "../components/Expanime";
 
 function Categorycard() {
     const [isClicked, setIsClicked] = useState(false);
-    const [e,f] = useState("");
     const [description, setDescription] = useState("");
+    const [e,f] = useState("");
     let params = useParams();
     useEffect(() => {
     async function a() {

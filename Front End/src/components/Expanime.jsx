@@ -42,16 +42,21 @@ function Expanime(props) {
          <h6>{props.title}</h6> 
          <div className="explore">
          { loading ? (abc()) :
-          (data.map((item, index) => 
-            <Link to={`/anime/${item.attributes.slug}`} className="explore-img" key={index}>
+          (data.map((item, index) =>
+          <div className="explore-img-parent" key={index}> 
+            <Link to={`/anime/${item.attributes.slug}`} 
+            className="explore-img" 
+            key={index}>
              <img 
                 key={index}
                 style={style}
-                className="explore-img" 
+                className="explore-img absolute" 
                 alt="anime"
                 src={item.attributes.posterImage.small}
               />
-            </Link>))
+              <div className="bg-gradient-to-t hover:from-[#000000cc] hover:to-[#0000001a] hover:bg-opacity-50 hover:rounded-md h-full w-full relative" />
+            </Link>
+            </div>))
          }
           </div>
     </>

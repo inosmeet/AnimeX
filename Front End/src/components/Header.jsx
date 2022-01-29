@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 function Header() {
   let navigate = useNavigate();
- async function search(e){
+  function search(e){
     if(e.key === "Enter"){
       e.preventDefault();
      navigate(`/query/${e.target.value}`);
