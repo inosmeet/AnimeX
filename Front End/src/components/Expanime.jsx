@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-
+import {OverlayTrigger, Tooltip} from "react-bootstrap";
 
 function Expanime(props) {
     const [data, setData] = useState([]);
@@ -44,6 +44,15 @@ function Expanime(props) {
          { loading ? (abc()) :
           (data.map((item, index) =>
           <div className="explore-img-parent" key={index}> 
+          <OverlayTrigger
+            placement="bottom"
+            delay={150}
+            overlay={
+              <Tooltip id="tooltip-bottom">
+                {item.attributes.slug}
+              </Tooltip>
+            }
+            >
             <Link to={`/anime/${item.attributes.slug}`} 
             className="explore-img" 
             key={index}>
@@ -56,6 +65,8 @@ function Expanime(props) {
               />
               <div className="bg-gradient-to-t hover:from-[#000000cc] hover:to-[#0000001a] hover:bg-opacity-50 hover:rounded-md h-full w-full relative" />
             </Link>
+          </OverlayTrigger>
+
             </div>))
          }
           </div>

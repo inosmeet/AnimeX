@@ -9,6 +9,7 @@ body{
 
 nav {
   background-color: #242526;
+  /* background-color: transparent; */
 }
 .nav-fix {
   position: fixed;
