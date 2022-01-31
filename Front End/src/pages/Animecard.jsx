@@ -39,36 +39,36 @@ function handleClick() {
     <>
       {
           e.map((item, index) => {
-             return (<div key={index} className="grid grid-cols-6 relative h-screen grid-rows-3">
-                <div className="cover-img relative col-span-6 w-full brightness-50">
+             return (<div key={index} className="grid grid-cols-6  h-screen grid-rows-4">
+                <div className="cover-img absolute col-span-6 w-full ">
                     {item.attributes.coverImage === null ? 
-                        <img src={defaultImage} className="h-full w-[inherit] object-cover" /> 
+                        <img src={defaultImage} className="h-[450px] w-[inherit] object-cover absolute" /> 
                         : 
-                        <img src={item.attributes.coverImage.original} className="h-[400px] w-[inherit] object-cover" />
+                        <img src={item.attributes.coverImage.original} className="h-[450px] w-[inherit] object-cover absolute" />
                     }
+                    <div className="bg-gradient-to-t from-[#000000cc] to-[#0000001a] relative h-[450px] w-[inherit]" />
                 </div>
                 
-                <div className="poster-img relative col-start-2 m-auto brightness-75">
+                <div className="poster-img  sticky col-start-2 row-start-1 ">
                     <img src={item.attributes.posterImage.original}
-                      className="h-[inherit] w-[inherit]  rounded-md object-cover "
+                      className="h-[426px] w-[286px] absolute rounded-md object-cover  "
                      />
+                    <div className="bg-gradient-to-t from-[#000000cc] to-[#0000001a] relative h-[426px] w-[286px] rounded-md" />
                 </div>
                 
-                <div className="info relative block col-start-3 row-start-2 col-span-2 mt-[150px]">
+                <div className="info-title relative block col-start-3 row-start-2 col-span-full ">
                     
                     
-                    {item.attributes.titles_en === undefined ? 
-                    <h3 className="inline font-bold text-[#464646]">{item.attributes.titles.en_jp}</h3>
-                    :
-                    <h3 className="inline font-bold text-[#464646]">{item.attributes.titles_en}</h3>
-                    }
-
-
-                    <h5 className="inline text-[#999] font-bold ml-[2%]">{item.attributes.startDate.slice(0, 4)}</h5>
                    
-                    <span className="text-[#1abc9c] block font-bold mt-[2%]">{item.attributes.averageRating + "% Community Approval"}</span>
-                    <hr />
+                     <span className="inline font-bold opacity-95 leading-none text-[60px] text-[#fff]" style={{"textTransform": "capitalize"}}>{item.attributes.slug}</span>
 
+                    <span className="text-[30px] text-[white] opacity-75 font-bold ml-[2%]">{item.attributes.startDate.slice(0, 4)}</span>
+                   
+                    <span className="text-[#1abc9c] block font-bold mt-[2%] ">{item.attributes.averageRating + "% Community Approval"}</span>
+                    </div>
+
+
+                    <div className="info-description relative col-start-3 row-start-3 col-span-2 "> 
                     { item.attributes.description.length < 300 ? <p className="whitespace-pre-line">{item.attributes.description}</p> :
                      (isClicked ? 
                    <p className="whitespace-pre-line">
@@ -80,17 +80,73 @@ function handleClick() {
                      <button style={{"border": "none", "backgroundColor": "white", "color": "red"}} onClick={handleClick}>Read More</button>
                    </p>)
                    }
+          
                    <hr />
-                   
-                   
                    
                    <a href="#" className="text-[#464646] no-underline hover:text-[#464646] ">{"❤ Rank #" + item.attributes.popularityRank + " (Most Popular Anime)"}</a>
                    <a href="#" className="text-[#464646] no-underline hover:text-[#464646] ml-[16%]">{"⭐ Rank #" + item.attributes.ratingRank + " (Highest Rated Anime)"}</a>
                    <hr />
+                   </div>
+
+                  <div className="anime-details ml-5 relative col-start-5 row-span-1 row-start-3 w-full bg-white h-full rounded-md">
+                  <div className="mt-3">
+                   <h5 className="ml-5">Anmie Details</h5>
+                   <table className="info-table ml-2 border-separate">
+                     <tbody>
+                       <tr>
+                       <td className="font-bold">Episodes</td>
+                       <td className="font-medium">{item.attributes.episodeCount}</td>
+                       </tr>
+                       <tr>
+                       <td className="font-bold">Status</td>
+                       <td className="font-medium">{item.attributes.status}</td>
+                       </tr>
+                       <tr>
+                       <td className="font-bold">Season</td>
+                       <td className="font-medium">asd</td>
+                       </tr>
+                       <tr>
+                       <td className="font-bold">Age Rating</td>
+                       <td className="font-medium">{item.attributes.ageRating + "- " + item.attributes.ageRatingGuide}</td>
+                       </tr>
+                       <tr>
+                       <td className="font-bold">Length</td>
+                       <td className="font-medium">{item.attributes.episodeLength + " minutes each"}</td>
+                       </tr>
+                     </tbody>
+                   </table>
+                   
+                   
+                   
+                   
+                   
+                   {/* <ul className="list-unstyled ">
+                     <li className="inline">
+                       
+                     </li>
+                     <li>
+                       <strong className="mr-20">Status</strong>
+                       <span  className="info-li"></span>
+                     </li>
+                     <li>
+                       <strong className="mr-20">Season</strong>
+                       <span  className="info-li">{item.attributes.episodeCount}</span>
+                     </li>
+                     <li>
+                       <strong className="mr-20">Agr Rating</strong>
+                       <span  className="info-li"></span>
+                     </li>
+                     <li>
+                       <strong className="mr-20">Length</strong>
+                       <span  className="info-li"></span>
+                     </li>
+                   </ul> */}
+                   </div>
+                  </div>
 
 
 
-                </div>
+                
 
 
               </div>)

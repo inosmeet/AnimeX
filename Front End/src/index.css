@@ -4,8 +4,14 @@
 
 
 .poster-img {
-    height: 300px;
-    width: 200px;
-    /* margin-top: 20%;
-    left: 5%; */
+    top: 7%;
+    margin-top: 50%;
+    left: 3%;
+}
+.info-title {
+    margin-top: 5%;
+    
+}
+.info-table{
+    border-spacing:15px 5px;
 }
