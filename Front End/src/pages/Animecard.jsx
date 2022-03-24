@@ -8,11 +8,12 @@ function Animecard() {
     const [isClicked, setIsClicked] = useState(false);
     const [e,f] = useState([]);
     const [include ,setInclude] = useState([]);
+    const [alpha, setAlpha] = useState([]);
     let params = useParams();
     const defaultImage = "https://kitsu.io/images/default_cover-22e5f56b17aeced6dc7f69c8d422a1ab.png";
     useEffect(() => {
     async function a() {
-        const response = await axios.get("https://kitsu.io/api/edge/anime?fields%5Bcategories%5D=slug%2Ctitle&filter%5Bslug%5D="+params.animeId+"&include=categories"); 
+        const response = await axios.get("https://kitsu.io/api/edge/anime?fields%5Bcategories%5D=slug%2Ctitle&filter%5Bslug%5D="+ params.animeId +"&include=categories&sortField=Title"); 
         const data = await response.data.data;
         const data2 = await response.data.included;
 
@@ -31,7 +32,11 @@ function Animecard() {
     
 a();
 }, []); 
-
+// include.map(async function (item) {
+//   const d = await item.attributes.title;
+//     setAlpha(d);
+//     console.log(alpha);
+//   });
 
 function handleClick() {
     setIsClicked(!isClicked);
@@ -41,7 +46,7 @@ function handleClick() {
     <>
       {
           e.map((item, index) => {
-             return (<div key={index} className="grid grid-cols-6  h-screen grid-rows-4">
+             return (<div key={index} className="grid grid-cols-6 h-screen grid-rows-4">
                 <div className="cover-img absolute col-span-6 w-full ">
                     {item.attributes.coverImage === null ? 
                         <img src={defaultImage} className="h-[450px] w-[inherit] object-cover absolute" /> 
@@ -86,14 +91,14 @@ function handleClick() {
                    }
                   {include.map((link, ind) => { 
                     return  <div key={ind} className="inline mt-3 col-span-2">
-
+                    <li className="inline"> 
                      <Link to={"/category/" + link.attributes.slug} 
                     className=" bg-white mt-1 inline-block border-[1px] leading-5 pl-[4px] pr-[4px] ml-[4px] mr-[4px] no-underline text-[#464646] rounded-[3px] object-fill ">
                     {link.attributes.title}
                     </Link>  
-                    
+                    </li>
                   </div>
-                  })}
+                  }).sort()}
 
 
 
@@ -139,7 +144,7 @@ function handleClick() {
                   <div className="yt-thumbnail relative  col-start-5 row-start-4 h-[70px] w-full ml-5 mt-3">
                     <a href={"https://www.youtube.com/watch?v=" + item.attributes.youtubeVideoId} className="no-underline h-full">
                       <img src={"https://i.ytimg.com/vi/"+ item.attributes.youtubeVideoId +"/hqdefault.jpg"} 
-                        className="w-full h-full object-cover absolute rounded-sm "
+                        className="w-full h-full object-cover absolute rounded-md "
                       />
                     <div className="text-[white]  bg-gradient-to-t from-[rgba(0,0,0,.8)] to-[rgba(0,0,0,.1)] hover:from-[rgba(0,0,0,.8)] hover:to-[rgba(0,0,0,.8)] relative h-[inherit] w-[inherit] rounded-md text-center " >
                     <i className="fab fa-youtube fa-2x inline mt-3"></i>

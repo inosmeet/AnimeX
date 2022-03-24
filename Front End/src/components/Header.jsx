@@ -66,9 +66,9 @@ function Header() {
               onKeyDown={search}
             />
 
-            <a className="nav-link active register header-link" aria-current="page" href="">
+            <Link to="/register" className="nav-link active register header-link" aria-current="page" >
               Register
-            </a>
+            </Link>
           </form>
         </div>
       </nav>
