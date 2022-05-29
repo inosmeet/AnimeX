@@ -1,21 +1,23 @@
-require('dotenv').config(); 
-const express = require("express");
-const mongoose = require("mongoose");
-main().catch(err => console.log(err));
-const session = require('express-session');
-const passport = require('passport');
-const cors = require("cors");
-const MongoStore = require("connect-mongo");
+import dotenv from "dotenv";
+dotenv.config(); 
+import express from "express";
+// import mongoose from "mongoose";
+import session from 'express-session';
+import passport from 'passport';
+import cors from "cors";
+import MongoStore from "connect-mongo";
+import axios from "axios";
+import _ from "lodash";
 
-const telegram = require("./src/telegram/bot");
-const { isUserAuthenticated } = require("./src/middleware/auth");
-const User = require('./src/database/database');
-require("./src/passport/passport");
+import telegram from "./src/telegram/bot.js";
+import { isUserAuthenticated } from "./src/middleware/auth.js";
+import { User, Library } from './src/database/database.js';
+import "./src/passport/passport.js";
 
 
 
 const app = express();
-app.use(cors({ origin: "http://localhost:3000", credentials: true}));
+app.use(cors({ origin: "http://localhost:3000", credentials: true }));
 
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
@@ -49,15 +51,7 @@ app.post("/contact", function(req, res) {
 });
 
 
-async function main() {
-  await mongoose.connect(process.env.MONGODB_URI);
-};
-
-
-app.get("/", (req, res) => {
-    res.send("<a href='/login/google'>google</a>");
-  });
-
+// Authentication Section
 app.get("/login/google", 
   passport.authenticate("google", {scope: ['profile', 'email'], prompt : "select_account" })
 );
@@ -66,8 +60,7 @@ app.get("/auth/google/callback",
   passport.authenticate('google', { 
      successRedirect: "http://localhost:3000/login/success",
      failureRedirect: "http://localhost:3000/login/error" 
-    }),    
-  (req, res) => { res.send('Thanks for signing in!') }
+  })    
 );
 
 app.get("/auth/user", isUserAuthenticated, async (req, res) => { 
@@ -76,13 +69,64 @@ app.get("/auth/user", isUserAuthenticated, async (req, res) => {
   res.json(data);
 });
 
-app.post('/logout', function(req, res){
+app.post('/logout', (req, res) => {
   req.logout();
   req.session.destroy();
   res.clearCookie("connect.sid");
 });
 
 
-app.listen(5000, function(){
+
+// temporarily saving to library->all array
+// app.post("/library", isUserAuthenticated, async (req, res) => {
+//   const filter = {user: req.session.passport.user};
+//   const update = {$push: { library: { allAnime: req.body.libLink }}};
+//   const options = { new: true, upsert: true };
+//   const response = await Library.findOneAndUpdate( filter, update, options);
+//   res.json(response);                                
+// });
+
+// app.get("/get-library", isUserAuthenticated, async (req, res) => {
+  //   await Library.find({user: req.session.passport.user}).then(async (data) => {
+    //   const response = await data[0]?.library.allAnime;
+    //   const ids = response?.join();
+    //   console.log(data);
+    //   const getLib = await axios.get(`https://kitsu.io/api/edge/anime?filter%5Bid%5D=${ids}&page%5Blimit%5D=20`);
+    //   res.json(getLib.data);
+    //   });
+    // });
+    
+// Library Section
+app.post("/library", isUserAuthenticated, async (req, res) => {
+  const libLink = req.body.libLink;
+  const libName = _.camelCase(req.body.libName);
+
+  const filter = {user: req.session.passport.user};
+  const update = {$push: { [libName]: libLink, allAnime: libLink}}
+  const options = { new: true, upsert: true };
+  await Library.findOneAndUpdate(filter, update, options);
+});
+
+app.get("/get-library/:libraryId", isUserAuthenticated, async (req, res) => {
+  const libraryId = _.camelCase(req.params.libraryId);
+  await Library.find({user: req.session.passport.user}).then(async (data) => {
+  const response = await data[0]?.[libraryId];
+  const ids = response?.join();
+  const getLib = await axios.get(`https://kitsu.io/api/edge/anime?filter%5Bid%5D=${ids}&page%5Blimit%5D=20`);
+  res.json(getLib.data);
+  });
+});
+
+app.post("/rem-library", isUserAuthenticated, async (req, res) => {
+  const libName = _.camelCase(req.body.libName);
+  const libLink = req.body.libLink;
+  
+  const filter = {user: req.session.passport.user};
+  const update = {$pullAll: {[libName]: [libLink], allAnime: [libLink]}}
+  await Library.updateOne(filter, update);
+});
+
+
+app.listen(5000, () =>  {
   console.log("Server started on port 5000.");
 });
