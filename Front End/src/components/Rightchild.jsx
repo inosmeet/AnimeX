@@ -1,7 +1,7 @@
 import Expanime from "./Expanime";
 
+export default function Rightchild() {
 
-export default function Rightchild(props) {
     return (
         <div className="right-child">
         <h2 className="explore-title">Explore Anime</h2>

@@ -35,6 +35,9 @@ nav {
   position: relative;
   left: 56px;
 }
+.navlink-div-reg{
+  position: relative;
+}
 
 .header-link {
   font-family: Montserrat;
@@ -137,7 +140,7 @@ nav {
   height: 30px;
   width: 134px;
   position: relative;
-  top: 5px;
+  /* top: 5px; */
   font-size: 0.9rem;
 }
 
@@ -405,8 +408,11 @@ p {
 .explore-img{
   height: inherit; /* 13.75 */
   width: inherit; /* 9.68 */
-  border-radius: 0.3rem;
   transition: transform .3s;
+  border-radius: 0.3rem;
+  animation: fadeInAnimation ease 2s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
 }
 
 .explore-img-parent{
@@ -481,6 +487,9 @@ h6{
     width: inherit; /* 9.68 */
     border-radius: 0.3rem;
     transition: transform .3s;
+    animation: fadeInAnimation ease 2s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
   }
   .explore-title{
     margin-left: 15%;

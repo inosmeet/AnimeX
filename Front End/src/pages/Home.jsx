@@ -1,11 +1,9 @@
-
 import Img from "../components/Img";
 import Grid from "../components/Grid";
 
-function Home() {
+export default function Home() {
   document.title="AnimeX";
   return (
-    
     <>
       <Img />
       <Grid />
@@ -13,4 +11,3 @@ function Home() {
   );
 }
 
-export default Home;

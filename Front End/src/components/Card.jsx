@@ -1,5 +1,3 @@
-
-
 function Card() {
   return (
     <section>
