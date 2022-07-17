@@ -35,7 +35,7 @@ export default function List() {
   //   break;
   // }
   
-  const { links } = useFetch(api);
+  
   return (
     <div className="sidebar-parent">
       <Leftchild />

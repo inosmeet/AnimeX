@@ -24,6 +24,7 @@ const useFetch = (url) => {
             setLoading(false);
         }
     }, [url, setData, setLoading, setHasMore]);
+
     
     function loader() {
         return (<div className="placeholder-div">
