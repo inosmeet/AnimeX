@@ -77,7 +77,6 @@ const Expanime = React.memo((props) => {
   const EmptyData = () => {
     return <h5>Oops! There doesn't seem to be any data for this section.</h5>;
   };
-
   return (
     <>
       <h6>{props.title}</h6>
@@ -88,7 +87,7 @@ const Expanime = React.memo((props) => {
           <EmptyData />
         ) : (
           data.current.map((item, index) => {
-            return <ImgDiv item={item} index={index} key={index} isLibrary={props.isLibrary ? true : false} />;
+            return <ImgDiv item={item} index={index} key={index} isLibrary={props.isLibrary ? true : false} name={props.name} />;
           })
         )}
         {props.viewMore ? 

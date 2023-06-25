@@ -111,7 +111,7 @@ async function handleClick(){
               :
             <ul className="nav ">
               <li>
-              <a href="#" onClick={handleClick} className="header-link" aria-current="page" >
+              <a href="http://localhost:5000/login/google"  className="header-link" aria-current="page" >
                 Login
               </a>
               </li>

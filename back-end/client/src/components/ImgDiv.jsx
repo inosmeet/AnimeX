@@ -2,8 +2,10 @@ import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import Popup from "reactjs-popup";
+import { useState } from "react";
 
-const ImgDiv = ({ item, index, isLibrary }) => {
+const ImgDiv = ({ item, index, isLibrary, name }) => {
+  const [show, setShow] = useState(5);
   let style = {
     borderRadius: "4px",
     animation: "fadeInAnimation ease 1.5s",
@@ -18,11 +20,16 @@ const ImgDiv = ({ item, index, isLibrary }) => {
     });
   }
   async function handleRemoval(e) {
-    console.log(e.target.innerText);
     await axios.post("/rem-library", {
       libLink: item.id,
-      libName: e.target.innerText,
+      libName: name,
     });
+    console.log(show);
+    setShow(0);
+    console.log(show);
+    setTimeout(() => {
+      console.log(show);
+    }, 3000);
   }
 
   return (

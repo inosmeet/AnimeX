@@ -8,6 +8,7 @@ import cors from "cors";
 import MongoStore from "connect-mongo";
 import axios from "axios";
 import _ from "lodash";
+import path from "path";
 
 import telegram from "./src/telegram/bot.js";
 import { isUserAuthenticated } from "./src/middleware/auth.js";
@@ -17,10 +18,19 @@ import "./src/passport/passport.js";
 
 
 const app = express();
+const __dirname = path.resolve();
+
 app.use(cors({ origin: "http://localhost:3000", credentials: true }));
 
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
+
+if(process.env.NODE_ENV === "production")
+{
+  app.use(express.static(path.resolve(__dirname, "../client/build")));
+}
+
+
 
 
 // Database connection for Session management
@@ -58,8 +68,8 @@ app.get("/login/google",
 
 app.get("/auth/google/callback", 
   passport.authenticate('google', { 
-     successRedirect: "http://localhost:3000/login/success",
-     failureRedirect: "http://localhost:3000/login/error" 
+     successRedirect: "http://localhost:5000",
+     failureRedirect: "http://localhost:5000" 
   })    
 );
 
@@ -120,12 +130,18 @@ app.get("/get-library/:libraryId", isUserAuthenticated, async (req, res) => {
 app.post("/rem-library", isUserAuthenticated, async (req, res) => {
   const libName = _.camelCase(req.body.libName);
   const libLink = req.body.libLink;
-  
+
   const filter = {user: req.session.passport.user};
   const update = {$pullAll: {[libName]: [libLink], allAnime: [libLink]}}
-  await Library.updateOne(filter, update);
+  return await Library.updateOne(filter, update);
 });
 
+if(process.env.NODE_ENV === "production")
+{
+  app.get("/*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "../client/build", "index.html"));
+  });
+}
 
 app.listen(5000, () =>  {
   console.log("Server started on port 5000.");
