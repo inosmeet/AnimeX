@@ -1,12 +1,14 @@
 import Leftchild from '../components/Leftchild';
 import Expanime from '../components/Expanime';
-import LibraryList from '../components/LibraryList';
-import { useParams } from "react-router-dom";
+import { useState } from 'react';
 
 export default function Library() {
-  const params = useParams();
+  let [lib, setLib] = useState('all-anime');
+  let api = api=`/get-library/${lib}`;
   document.title = "Library | AnimeX";
-  const title = params.libraryId.charAt(0).toUpperCase() + params.libraryId.slice(1);
+  const title = lib.charAt(0).toUpperCase() + lib.slice(1);
+
+
   return ( 
     <div className="sidebar-parent">
       <Leftchild />
@@ -14,15 +16,22 @@ export default function Library() {
         <h2 className="explore-title">{title}</h2>
 
         <Expanime 
-          api={`/get-library/${params.libraryId}`}
-          function="handleRemoval"
+          api={`/get-library/${lib}`}
+          isLibrary={true}
+          viewMore={false}
           name={title}
         /> 
         
       </div>
 
       <div className="description">
-        <LibraryList />
+        <h3 className="description-title">Libraries</h3>
+        <button className="block btn" onClick={() => {setLib('all-anime')}}>All Anime</button>
+        <button className="block btn" onClick={() => {setLib('currently-watching')}}>Currently Watching</button>
+        <button className="block btn" onClick={() => {setLib('want-to-watch')}}>Want to Watch</button>
+        <button className="block btn" onClick={() => {setLib('completed')}}>Completed</button>
+        <button className="block btn" onClick={() => {setLib('on-hold')}}>On Hold</button>
+        <button className="block btn" onClick={() => {setLib('dropped')}}>Dropped</button>
       </div>  
        
     </div> 

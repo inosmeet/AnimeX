@@ -32,7 +32,9 @@ function App() {
       {/* <Route path="register" element={<Register />} /> */}
       <Route path="/login/success" element={<LoginSuccess />} />
       <Route path="/login/error">Error logging in, Please try again later!</Route>
-      <Route path="/library/:libraryId" element={<Library />} />
+      {/* <Route path="/library/:libraryId" element={<Library />} /> */}
+      <Route path="/library" element={<Library />} />
+      // one which will be displaying anime from view more link 
       <Route path="/:listId" element={<List />} />
     </Routes>
     </UserProvider>

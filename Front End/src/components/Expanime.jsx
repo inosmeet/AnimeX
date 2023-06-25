@@ -1,106 +1,104 @@
-import { useEffect, useState, useRef, useCallback } from 'react';
+import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { OverlayTrigger, Tooltip } from "react-bootstrap";
-import useFetch from "./useFetch";
-import InfiniteScroll from 'react-infinite-scroll-component';
-// import useCountRender from "./useCountRender";
+// import { OverlayTrigger, Tooltip } from "react-bootstrap";
+import ImgDiv from "./ImgDiv";
 
-const Expanime = (props) => {
-  const { data, loading, loader, hasMore, links } = useFetch(props.api);
-  
-  // const observer = useRef();
-  // const lastElelmentRef = useCallback(node => {
-  //   if(loading) return
-  //   if(observer.current) observer.current.disconnect()
-  //   observer.current = new IntersectionObserver(entries => {
-  //     if(entries[0].isIntersecting) {
-  //       console.log("Last");
-  //       a();
-  //     }
-  //   })
-  //   if(node) observer.current.observe(node)
-  // }, [loading, hasMore]);
+const Expanime = React.memo((props) => {
+  const [reload, setReload] = useState(0);
 
-    
-  // useCountRender("Expanime ");
+  // const [data, setData] = useState([]);
+  const data = useRef([]);
+  const [loading, setLoading] = useState(true);
+  const isCurrent = useRef(true);
 
-  async function handleAddition(e){
-    console.log(e.target.innerText);
-    await axios.post("/library", {
-      libLink: e.target.value,
-      libName: e.target.innerText
-    });
+  let page_offset = 21;
+
+  const updateState = () => {
+    setReload(Math.random());
   };
-  async function handleRemoval(e){
-    console.log(e.target.innerText);
-    await axios.post("/rem-library", {
-      libLink: e.target.value,
-      libName: e.target.asd
-    });
+  const handleScroll = async () => {
+    const windScroll =
+      document.documentElement.scrollTop || document.body.scrollTop;
+    const height =
+      document.documentElement.scrollHeight -
+      document.documentElement.clientHeight;
+    const scrolled = (windScroll / height) * 100;
+    
+    if (props.onQuery && scrolled > 50) {
+      console.log("scrolling");
+      window.removeEventListener("scroll", handleScroll);
+      page_offset += 20;
+      const response = await axios.get(
+        props.api + "&page[offset]=" + page_offset.toString()
+      );
+      setTimeout(() => {
+        data.current = data.current.concat(response.data.data);
+        updateState();
+      }, 1);
+      window.addEventListener("scroll", handleScroll);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => {
+      isCurrent.current = false;
+    };
+  }, []);
+
+  useEffect(async () => {
+    load();
+  }, [props.api]);
+
+  async function load() {
+    const response = await axios.get(props.api);
+    setTimeout(() => {
+      data.current = (response.data.data);
+      updateState();
+    }, 1);
+    // setData(await response.data.data);
+    setLoading(false);
+  }
+
+  function loader() {
+    return (
+      <div className="placeholder-div">
+        <div className="placeholder-item" />
+        <div className="placeholder-item" />
+        <div className="placeholder-item" />
+        <div className="placeholder-item" />
+        <div className="placeholder-item" />
+      </div>
+    );
   }
 
   const EmptyData = () => {
-    return(<h5>Oops! There doesn't seem to be any data for this section.</h5>)
-  }
+    return <h5>Oops! There doesn't seem to be any data for this section.</h5>;
+  };
 
-  const ImgDiv = ({item, index}) => {
-    return <div className="m-[0.5%]" key={index}>
-    <div className="explore-img-parent">
-    <OverlayTrigger
-      placement="bottom"
-      delay={150}
-      overlay={
-        <Tooltip id="tooltip-bottom">
-          {item.attributes.slug}
-        </Tooltip>
-      }
-      >
-      <Link to={`/anime/${item.attributes.slug}`} 
-      className="explore-img" 
-      >
-        <img 
-          className="explore-img absolute" 
-          alt="anime"
-          src={item.attributes.posterImage.small}
-        />
-        <div className="bg-gradient-to-t hover:from-[#000000cc] hover:to-[#0000001a] hover:bg-opacity-50 hover:rounded-md h-full w-full relative" >
-        {/* <button className="relative float-right opacity-0 hover:opacity-100 h-full w-full text-black border-none bg-inherit" 
-          onClick={props.function ? handleRemoval : handleAddition } 
-          value={item.id} asd={props.name}>
-          <i className="fa fa-bookmark" aria-hidden="true"></i>
-          </button> */}
-        </div>
-      </Link>
-    </OverlayTrigger>
-    
-    </div>
-    </div>
-  }
-  
   return (
     <>
-      <h6>{props.title}</h6> 
-      <div className="explore">
-      { loading ? (loader()) :
-      data.length === 0 ? <EmptyData /> :
-     
-      (data.map((item, index) => 
-      {return <ImgDiv item={item} index={index} key={index} />} 
-        
-      ))
-      }
-      <Link to={`/${props.title}`}>view more</Link>
+      <h6>{props.title}</h6>
+      <div className="explore flex flex-wrap gap-2 w-full margin-left ">
+        {loading ? (
+          loader()
+        ) : data.current.length === 0 ? (
+          <EmptyData />
+        ) : (
+          data.current.map((item, index) => {
+            return <ImgDiv item={item} index={index} key={index} isLibrary={props.isLibrary ? true : false} />;
+          })
+        )}
+        {props.viewMore ? 
+        <Link to={`/${props.title}`}>view more</Link>
+        : 
+        null 
+        }
       </div>
     </>
-  )
-}
+  );
+});
 
 export default Expanime;
-
-
-
-{/* <div className="m-[0.5%]" key={index}> 
-      <ImgDiv item={item}/>
-      <button onClick={props.function ? handleRemoval : handleAddition } value={item.id}>{props.function ? props.name : "dropped" }</button>
-  </div> */}

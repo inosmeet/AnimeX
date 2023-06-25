@@ -83,7 +83,7 @@ async function handleClick(){
             </li>
             
             <li>
-            <Link to="/library/all-anime" onClick={handleLibrary} className="header-link ">
+            <Link to="/library" onClick={handleLibrary} className="header-link ">
               Library
             </Link>
             </li>

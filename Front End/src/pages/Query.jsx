@@ -39,7 +39,6 @@ export default function Query() {
     )
   }
 
-
   return (
     <div className="sidebar-parent">
       <Leftchild />
@@ -49,20 +48,16 @@ export default function Query() {
     
         <Expanime
           api={"https://kitsu.io/api/edge/anime?filter%5Btext%5D=" + params.queryId + "8&page%5Blimit%5D=20"}
-        />
-        <Expanime 
-          api={"https://kitsu.io/api/edge/anime?filter%5Btext%5D=" + params.queryId + "8&page%5Blimit%5D=20&page%5Boffset%5D=20"}
-        />
-        <Expanime 
-          api={"https://kitsu.io/api/edge/anime?filter%5Btext%5D=" + params.queryId + "8&page%5Blimit%5D=20&page%5Boffset%5D=40"}
+          onQuery={true}
+          viewMore={false}
         />
         </div>
       </div>
 
-      <div className="description">
+      {/* <div className="description invisible">
         <h3 className="description-title">Description</h3>
-        <Description />
-      </div>
+        <Description /> 
+      </div>  */}
     </div>
   );
 }
