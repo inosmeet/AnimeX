@@ -1,8 +1,5 @@
-all hooks - Done
-React.Memo - semi done
-cleanup function - Done
-profiler - Done
-useTransition / useDeferedValue
-
-implement infinite scrolling with help of pagination.
-make website mobile compatible as well.
+tooltip vanished
+style on the lib popup is not applying
+rightchild orientation not right
+remove description from every page
+change required in margin/padding rightchild grid component
