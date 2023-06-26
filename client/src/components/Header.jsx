@@ -131,7 +131,7 @@ function Header() {
               <ul className="nav ">
                 <li>
                   <a
-                    href="http://localhost:5000/login/google"
+                    href="/login/google"
                     className="header-link"
                     aria-current="page"
                   >
