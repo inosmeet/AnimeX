@@ -13,6 +13,12 @@ bot.use(ctx => {
   telegram.sendMessage(ctx.from.id, 
   `Your Telegram id: ${ctx.from.id}`);
 });
-bot.startPolling();
+try{
+
+  bot.startPolling();
+}
+catch(err){
+  console.log("Teleram bot err:", err);
+}
 
 export default telegram;

@@ -27,7 +27,7 @@ app.use(express.json());
 
 if(process.env.NODE_ENV === "production")
 {
-  app.use(express.static(path.resolve(__dirname, "../client/build")));
+  app.use(express.static(path.resolve(__dirname, "./client/build")));
 }
 
 
@@ -67,10 +67,12 @@ app.get("/login/google",
 );
 
 app.get("/auth/google/callback", 
-  passport.authenticate('google', { 
+  passport.authenticate('google', 
+  { 
      successRedirect: "http://localhost:5000",
      failureRedirect: "http://localhost:5000" 
-  })    
+  }
+  )    
 );
 
 app.get("/auth/user", isUserAuthenticated, async (req, res) => { 
@@ -139,7 +141,7 @@ app.post("/rem-library", isUserAuthenticated, async (req, res) => {
 if(process.env.NODE_ENV === "production")
 {
   app.get("/*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "../client/build", "index.html"));
+    res.sendFile(path.resolve(__dirname, "./client/build", "index.html"));
   });
 }
 
