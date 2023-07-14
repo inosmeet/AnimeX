@@ -55,12 +55,13 @@ function Header() {
   }
 
   function handleLibrary() {
-    if (!user._id) {
-      if (window.confirm("Really go to another page?")) {
-        navigate("/");
-      } else {
-        navigate("/");
-      }
+    if (user._id === undefined) {
+      alert("You have to login to access your library");
+      // if (window.confirm("You have to login to access your library")) {
+      //   navigate("/");
+      // } else {
+      //   navigate("/");
+      // }
     } else {
       navigate("/library");
     }
@@ -91,7 +92,7 @@ function Header() {
 
             <li>
               <Link
-                to="/library"
+                to={user._id ? "/library" : "/"}  
                 onClick={handleLibrary}
                 className="header-link "
               >
@@ -123,7 +124,10 @@ function Header() {
 
             {user._id ? (
               <DropdownButton variant="dark" title={user.fullName}>
-                <Dropdown.Item href="#" onClick={async () => await axios.post("logout")}>
+                <Dropdown.Item
+                  href="http://localhost:3000/"
+                  onClick={async () => await axios.post("logout")}
+                >
                   Logout
                 </Dropdown.Item>
               </DropdownButton>
@@ -131,7 +135,8 @@ function Header() {
               <ul className="nav ">
                 <li>
                   <a
-                    href="/login/google"
+                    // href="http://localhost:3000"
+                    href="http://localhost:5000/login/google"
                     className="header-link"
                     aria-current="page"
                   >

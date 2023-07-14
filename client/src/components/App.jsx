@@ -13,7 +13,7 @@ import "../index.css";
 import { LoginSuccess } from "../pages/LoginSuccess";
 import UserProvider from "./UserContext";
 import Library from "../pages/Library";
-import List from "./List";
+import List from "../pages/List";
 
 
 function App() {

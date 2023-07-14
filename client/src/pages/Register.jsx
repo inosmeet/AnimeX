@@ -21,7 +21,7 @@ async function handleClick(){
       timer = setInterval(() => {
         if(myWindow.closed){
           navigate("/explore");
-          console.log("Authenticated");
+          // console.log("Authenticated");
           
           if(timer) clearInterval(timer);
         }

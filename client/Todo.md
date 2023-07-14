@@ -1,5 +1,7 @@
-tooltip vanished
 style on the lib popup is not applying
-rightchild orientation not right
-remove description from every page
-change required in margin/padding rightchild grid component
+tooltip vanished                                             --> done
+rightchild orientation not right                             --> done   
+remove description from every page                           --> done
+change required in margin/padding rightchild grid component  --> done
+
+all viewMore links ends up on same page every time           --> done

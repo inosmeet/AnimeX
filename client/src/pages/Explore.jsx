@@ -11,27 +11,27 @@ export default function Explore() {
 
         <Expanime
           title="Trending This Week"
-          api="https://kitsu.io/api/edge/trending/anime?limit=5"
+          api="https://kitsu.io/api/edge/trending/anime?limit=6"
           viewMore={true}
         />
         <Expanime
           title="Top Airing Anime"
-          api="https://kitsu.io/api/edge/anime?filter%5Bstatus%5D=current&page%5Blimit%5D=5&sort=-user_count"
+          api="https://kitsu.io/api/edge/anime?filter%5Bstatus%5D=current&page%5Blimit%5D=6&sort=-user_count"
           viewMore={true}
         />
         <Expanime
           title="Top Upcoming Anime"
-          api="https://kitsu.io/api/edge/anime?filter%5Bstatus%5D=upcoming&page%5Blimit%5D=5&sort=-user_count"
+          api="https://kitsu.io/api/edge/anime?filter%5Bstatus%5D=upcoming&page%5Blimit%5D=6&sort=-user_count"
           viewMore={true}
         />
         <Expanime
           title="Highest Rated Anime"
-          api="https://kitsu.io/api/edge/anime?page%5Blimit%5D=5&sort=-average_rating"
+          api="https://kitsu.io/api/edge/anime?page%5Blimit%5D=6&sort=-average_rating"
           viewMore={true}
         />
         <Expanime
           title="Most Popular Anime"
-          api="https://kitsu.io/api/edge/anime?page%5Blimit%5D=5&sort=-user_count"
+          api="https://kitsu.io/api/edge/anime?page%5Blimit%5D=6&sort=-user_count"
           viewMore={true}
         />
       </div>

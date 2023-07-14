@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-// import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import ImgDiv from "./ImgDiv";
 
 const Expanime = React.memo((props) => {
@@ -24,9 +23,9 @@ const Expanime = React.memo((props) => {
       document.documentElement.scrollHeight -
       document.documentElement.clientHeight;
     const scrolled = (windScroll / height) * 100;
-    
+
     if (props.onQuery && scrolled > 50) {
-      console.log("scrolling");
+      // console.log("scrolling");
       window.removeEventListener("scroll", handleScroll);
       page_offset += 20;
       const response = await axios.get(
@@ -55,7 +54,7 @@ const Expanime = React.memo((props) => {
   async function load() {
     const response = await axios.get(props.api);
     setTimeout(() => {
-      data.current = (response.data.data);
+      data.current = response.data.data;
       updateState();
     }, 1);
     // setData(await response.data.data);
@@ -80,22 +79,24 @@ const Expanime = React.memo((props) => {
   return (
     <>
       <h6>{props.title}</h6>
-      <div className="explore flex flex-wrap gap-2 w-full margin-left ">
+      <div className="explore flex flex-wrap gap-2 margin-left ">
         {loading ? (
           loader()
         ) : data.current.length === 0 ? (
           <EmptyData />
         ) : (
-          data.current.map((item, index) => {
-            return <ImgDiv item={item} index={index} key={index} isLibrary={props.isLibrary ? true : false} name={props.name} />;
-          })
+          data.current.map((item, index) => (
+            <ImgDiv
+              item={item}
+              index={index}
+              key={index}
+              isLibrary={props.isLibrary ? true : false}
+              name={props.name}
+            />
+          ))
         )}
-        {props.viewMore ? 
-        <Link to={`/${props.title}`}>view more</Link>
-        : 
-        null 
-        }
       </div>
+        {props.viewMore ? <Link to={`/${props.title}`} className="view-more" >view more</Link> : null}
     </>
   );
 });
