@@ -10,7 +10,7 @@ import axios from "axios";
 import _ from "lodash";
 import path from "path";
 
-// import telegram from "./src/telegram/bot.js";
+import telegram from "./src/telegram/bot.js";
 import { isUserAuthenticated } from "./src/middleware/auth.js";
 import { User, Library } from './src/database/database.js';
 import "./src/passport/passport.js";
@@ -53,12 +53,12 @@ app.use(passport.session());
 
 
 // Telegram bot for Contact us page
-// app.post("/contact", function(req, res) {
-//   telegram.sendMessage(
-//     process.env.MY_ID,
-//     `Name: ${req.body.Name} \nEmail: ${req.body.Email}\nMessage: ${req.body.Message}`,
-//   );
-// });
+app.post("/contact", function(req, res) {
+  telegram.sendMessage(
+    process.env.MY_ID,
+    `Name: ${req.body.Name} \nEmail: ${req.body.Email}\nMessage: ${req.body.Message}`,
+  );
+});
 
 
 // Authentication Section
