@@ -125,7 +125,7 @@ function Header() {
             {user._id ? (
               <DropdownButton variant="dark" title={user.fullName}>
                 <Dropdown.Item
-                  href="http://localhost:3000/"
+                  href="/"
                   onClick={async () => await axios.post("logout")}
                 >
                   Logout
@@ -136,7 +136,7 @@ function Header() {
                 <li>
                   <a
                     // href="http://localhost:3000"
-                    href="http://localhost:5000/login/google"
+                    href="/login/google"
                     className="header-link"
                     aria-current="page"
                   >

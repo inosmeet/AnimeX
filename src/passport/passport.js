@@ -22,8 +22,9 @@ passport.deserializeUser(async (id, cb) => {
 });
  
   
-const GOOGLE_CALLBACK_URL = "http://localhost:5000/auth/google/callback";
+// const GOOGLE_CALLBACK_URL = "http://localhost:5000/auth/google/callback";
 // const GOOGLE_CALLBACK_URL = "/auth/google/callback";
+const GOOGLE_CALLBACK_URL = "https://animex-qdrqb.ondigitalocean.app/auth/google/callback";
   
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,

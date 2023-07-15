@@ -17,7 +17,7 @@ function UserProvider({ children }) {
         }
     })
     useEffect(async () => {
-        const response = await axios.get("http://localhost:5000/auth/user", { withCredentials: true }).catch(err => {
+        const response = await axios.get("/auth/user", { withCredentials: true }).catch(err => {
           console.log("Not authenticatedd properly", err);
         });
         if(response && response.data){
