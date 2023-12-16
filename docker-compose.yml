@@ -1,0 +1,27 @@
+version: '3.9'
+
+name: animex
+services:
+  nodejs:
+    container_name: nodejs
+    build: 
+      context: .
+      dockerfile: ./Dockerfile
+    init: true
+    networks:
+      - animex
+    env_file:
+      - .env
+    environment:
+      - DATABASE_URL=${MONGODB_URI}
+    ports:
+      - 5000:5000
+    restart: unless-stopped
+    image: ${DOCKER_USERNAME}/${APP_NAME}
+    volumes:
+      - node_modules:/usr/src/app/node_modules
+
+networks:
+  animex:
+volumes:
+  node_modules:
